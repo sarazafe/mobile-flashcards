@@ -15,15 +15,29 @@ class DeckList extends Component {
 			.then(decks => receiveDecks(decks));
 	}
 
+	/**
+	 * Navigates to deck details page
+	 * @param title - the title of the deck
+	 * @param navigation - the navigation
+	 */
+	navigateToDetails = ({title, navigation}) => {
+		navigation.navigate('Details', {
+			title,
+		});
+	}
+
 	render() {
-		const {decks} = this.props;
-		return (<View>
-			{
-				Object.values(decks).map(({title, questions}) => (
-					<DeckCard key={title} title={title} numberOfCards={questions.length}/>
-				))
-			}
-		</View>);
+		const {decks, navigation} = this.props;
+		return (
+			<View>
+				{
+					Object.values(decks).map(({title, questions}) => (
+						<DeckCard key={title} title={title} numberOfCards={questions.length}
+						          onPress={() => (this.navigateToDetails({title, navigation}))}/>
+					))
+				}
+			</View>
+		);
 	}
 }
 
