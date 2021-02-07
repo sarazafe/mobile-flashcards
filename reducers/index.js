@@ -1,3 +1,5 @@
+import {RECEIVE_DECKS} from "../actions";
+
 /**
  * Reducer for decks
  * @param state - the state
@@ -6,7 +8,12 @@
  */
 export const decks = (state = {}, action) => {
 	switch (action.type) {
+		case RECEIVE_DECKS :
+			return {
+				...state,
+				...action.decks,
+			};
 		default :
-			return state
+			return state;
 	}
 };
