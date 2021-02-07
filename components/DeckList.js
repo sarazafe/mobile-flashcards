@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Text, View} from "react-native";
+import {View} from "react-native";
 import {getDecks} from "../api/api";
 import {receiveDecks} from "../actions";
+import {DeckCard} from "./DeckCard";
 
 /**
  * Component that represents the list of decks
@@ -16,7 +17,13 @@ class DeckList extends Component {
 
 	render() {
 		const {decks} = this.props;
-		return (<View><Text>{JSON.stringify(decks)}</Text></View>);
+		return (<View>
+			{
+				Object.values(decks).map(({title, questions}) => (
+					<DeckCard key={title} title={title} numberOfCards={questions.length}/>
+				))
+			}
+		</View>);
 	}
 }
 
