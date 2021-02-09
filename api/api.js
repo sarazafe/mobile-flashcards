@@ -27,7 +27,11 @@ export const getDeck =(id) => {
  * @param title - the title of the deck
  */
 export const saveDeckTitle = title => {
-
+	return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+		[title]: {
+			title
+		}
+	}));
 };
 
 /**
