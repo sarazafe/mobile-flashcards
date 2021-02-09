@@ -33,7 +33,7 @@ class DeckList extends Component {
 				{
 					Object.values(decks).map(({title, questions}) => (
 						<TouchableDeckCard key={title} title={title} numberOfCards={questions.length}
-						          onPress={() => (this.navigateToDetails({title, navigation}))}/>
+						                   onPress={() => this.navigateToDetails({title, navigation})}/>
 					))
 				}
 			</View>
