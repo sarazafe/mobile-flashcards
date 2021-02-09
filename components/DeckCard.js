@@ -1,17 +1,17 @@
 import React from 'react';
-import {Text, TouchableOpacity} from "react-native";
+import {Text} from "react-native";
+import {View} from "react-native-web";
 
 /**
  * Component that represents a deck card
  * @param title - the title of the deck
  * @param numberOfCards - the number of cards in the deck
- * @param onPress - function to be called on onPress event
  */
-export const DeckCard = ({title, numberOfCards, onPress}) => {
+export const DeckCard = ({title, numberOfCards}) => {
 	return (
-		<TouchableOpacity onPress={onPress}>
+		<View>
 			<Text>{title}</Text>
 			<Text>{numberOfCards} cards</Text>
-		</TouchableOpacity>
+		</View>
 	)
 };
