@@ -45,7 +45,7 @@ const mapStateToProps = decks => {
 	return {
 		decks
 	};
-}
+};
 
 const mapDispatchToProps = dispatch => {
 	return {
