@@ -5,7 +5,7 @@ import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {decks as reducer} from './reducers';
-import {AddDeck} from "./components/AddDeck";
+import AddDeck from "./components/AddDeck";
 import {Home} from "./components/Home";
 
 export default function App() {
