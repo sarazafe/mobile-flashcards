@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {View} from "react-native";
 import {getDecks} from "../api/api";
 import {receiveDecks} from "../actions";
-import {DeckCard} from "./DeckCard";
+import {TouchableDeckCard} from "./TouchableDeckCard";
 
 /**
  * Component that represents the list of decks
@@ -32,7 +32,7 @@ class DeckList extends Component {
 			<View>
 				{
 					Object.values(decks).map(({title, questions}) => (
-						<DeckCard key={title} title={title} numberOfCards={questions.length}
+						<TouchableDeckCard key={title} title={title} numberOfCards={questions.length}
 						          onPress={() => (this.navigateToDetails({title, navigation}))}/>
 					))
 				}
