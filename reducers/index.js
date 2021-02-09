@@ -1,4 +1,4 @@
-import {RECEIVE_DECKS} from "../actions";
+import {RECEIVE_DECKS, ADD_DECK} from "../actions";
 
 /**
  * Reducer for decks
@@ -13,6 +13,11 @@ export const decks = (state = {}, action) => {
 				...state,
 				...action.decks,
 			};
+		case ADD_DECK:
+			return {
+				...state,
+				[action.deck.title]: action.deck,
+			}
 		default :
 			return state;
 	}

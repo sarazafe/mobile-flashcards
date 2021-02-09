@@ -1,4 +1,5 @@
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
+export const ADD_DECK = 'ADD_DECK';
 
 /**
  * Action to receive the decks
@@ -11,3 +12,15 @@ export const receiveDecks = decks => {
 		decks,
 	};
 };
+
+/**
+ * Action to add a deck
+ * @param deck - the added deck
+ * @returns {{type: string, title: *}} - the action with the deck
+ */
+export const addDeck = deck => {
+	return {
+		type: ADD_DECK,
+		deck,
+	}
+}
