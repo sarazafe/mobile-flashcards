@@ -11,7 +11,7 @@ export const DeckCard = ({title, numberOfCards, onPress}) => {
 	return (
 		<TouchableOpacity onPress={onPress}>
 			<Text>{title}</Text>
-			<Text>{numberOfCards}</Text>
+			<Text>{numberOfCards} cards</Text>
 		</TouchableOpacity>
 	)
 };
