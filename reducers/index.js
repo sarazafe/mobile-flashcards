@@ -1,4 +1,4 @@
-import {RECEIVE_DECKS, ADD_DECK} from "../actions";
+import {RECEIVE_DECKS, ADD_DECK, UPDATE_DECK} from "../actions";
 
 /**
  * Reducer for decks
@@ -17,7 +17,16 @@ export const decks = (state = {}, action) => {
 			return {
 				...state,
 				[action.deck.title]: action.deck,
-			}
+			};
+		case UPDATE_DECK:
+			const {questions} = state[action.deck.title];
+			return {
+				...state,
+				[action.deck.title]: {
+					...state[action.deck.title],
+					questions: questions.concat(action.deck.question)
+				}
+			};
 		default :
 			return state;
 	}

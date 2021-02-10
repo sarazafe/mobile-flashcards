@@ -1,5 +1,6 @@
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
 export const ADD_DECK = 'ADD_DECK';
+export const UPDATE_DECK = 'UPDATE_DECK';
 
 /**
  * Action to receive the decks
@@ -22,5 +23,17 @@ export const addDeck = deck => {
 	return {
 		type: ADD_DECK,
 		deck,
-	}
-}
+	};
+};
+
+/**
+ * Action to update a deck
+ * @param deck - the updated deck
+ * @returns {{type: string, title: *}} - the action with the deck
+ */
+export const updateDeck = deck => {
+	return {
+		type: UPDATE_DECK,
+		deck,
+	};
+};
