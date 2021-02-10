@@ -3,6 +3,8 @@ import {View, Text} from "react-native";
 
 /**
  * Component that represents a quiz resume
+ * @param rightQuestions - number of right questions
+ * @param totalQuestions - total number of deck's questions
  */
 export const QuizResume = ({rightQuestions, totalQuestions}) => {
 	return (
