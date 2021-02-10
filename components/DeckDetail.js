@@ -11,16 +11,20 @@ class DeckDetail extends Component {
 
 	/**
 	 * Starts the quiz
+	 * @param title - the title of the deck
 	 */
-	startQuiz = () => {
-
+	startQuiz = title => {
+		const {navigation} = this.props;
+		navigation.navigate('Quiz', {
+			title,
+		});
 	};
 
 	/**
 	 * Navigates to page that add a new card
 	 * @param title - the title of the deck
 	 */
-	navigateToAddCard = (title) => {
+	navigateToAddCard = title => {
 		const {navigation} = this.props;
 		navigation.navigate('Add card', {
 			title,
@@ -33,12 +37,15 @@ class DeckDetail extends Component {
 			<View>
 				<DeckCard title={title} numberOfCards={questions.length}/>
 
-				<Button style={{padding: 10}} onPress={this.startQuiz} disabled={questions.length === 0}>
-					Start the quiz!
-				</Button>
-				<Button style={{padding: 10}} onPress={() => this.navigateToAddCard(title)}>
-					Add a card
-				</Button>
+				<View>
+					<Button style={{padding: 10}} onPress={() => this.startQuiz(title)}
+					        disabled={questions.length === 0}>
+						Start the quiz!
+					</Button>
+					<Button style={{padding: 10}} onPress={() => this.navigateToAddCard(title)}>
+						Add a card
+					</Button>
+				</View>
 			</View>
 		)
 			;
