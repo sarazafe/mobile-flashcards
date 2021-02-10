@@ -3,8 +3,8 @@ import {View} from "react-native";
 import {connect} from 'react-redux';
 import {Button} from "./Button";
 import {Text} from "react-native-web";
-import {FontAwesome} from '@expo/vector-icons';
 import {QuizResume} from "./QuizResume";
+import {QuizQuestionSection} from "./QuizQuestionSection";
 
 /**
  * Component where quiz takes place
@@ -86,26 +86,9 @@ class Quiz extends Component {
 								{
 									showQuestion ?
 										(
-											<View>
-												<View>
-													<Text>{currentQuestion.question}</Text>
-												</View>
-												<View>
-													<Button style={{padding: 10}} onPress={this.toggleQuestion}>
-														Show the answer!
-													</Button>
-												</View>
-												<View>
-													<Button style={{padding: 20}}
-													        onPress={() => this.answerQuestion(true)}>
-														<FontAwesome name="thumbs-up" size={24} color="green"/> Right!
-													</Button>
-													<Button style={{padding: 10}}
-													        onPress={() => this.answerQuestion(false)}>
-														<FontAwesome name="thumbs-down" size={24} color="red"/> Wrong
-													</Button>
-												</View>
-											</View>
+											<QuizQuestionSection question={currentQuestion}
+											                     answerQuestionFn={this.answerQuestion}
+											                     toggleQuestionFn={this.toggleQuestion}/>
 										) : (
 											<View>
 												<View>
