@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Button} from "./Button";
 import {Text} from "react-native-web";
 import {FontAwesome} from '@expo/vector-icons';
+import {QuizResume} from "./QuizResume";
 
 /**
  * Component where quiz takes place
@@ -121,29 +122,11 @@ class Quiz extends Component {
 						)
 						:
 						(
-							<View>
-								<Text>End of quiz!</Text>
-								{
-									(rightQuestions / totalQuestions) * 100 > 50 ?
-										(
-											<View>
-												<Text>🎉 Congratulations!!!</Text>
-												<Text>You got {rightQuestions} of {totalQuestions} questions right!</Text>
-											</View>
-										) :
-										(
-											<View>
-												<Text>So sorry 🙁!!</Text>
-												<Text>You only got {rightQuestions} of {totalQuestions} right.</Text>
-												<Text>Go study and try it again when you're ready!! 💪🏻</Text>
-											</View>
-										)
-								}
-							</View>
+							<QuizResume rightQuestions={rightQuestions} totalQuestions={totalQuestions}/>
 						)
 				}
 			</View>
-		)
+		);
 	}
 }
 
