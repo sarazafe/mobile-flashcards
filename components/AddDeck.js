@@ -86,7 +86,7 @@ class AddDeck extends Component {
 	renderFormView = () => {
 		const {deckTitle} = this.state;
 		return (<View>
-			<Text>Adding a deck</Text>
+			<Text>Let's add a new deck!!</Text>
 			<TextInput
 				style={{height: 40, borderColor: 'gray', borderWidth: 1}}
 				onChangeText={text => this.updateDeckTitle(text)}
@@ -102,7 +102,7 @@ class AddDeck extends Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		addDeck: title => dispatch(addDeck(title))
+		addDeck: deck => dispatch(addDeck(deck))
 	};
 };
 
