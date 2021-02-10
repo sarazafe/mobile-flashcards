@@ -6,7 +6,7 @@ const DECKS_STORAGE_KEY = 'MobileFlashcards:decks';
  * Gets all decks in storage
  * @returns {*[]} list of decks with their questions
  */
-export const getDecks = ()=> {
+export const getDecks = () => {
 	return AsyncStorage.getItem(DECKS_STORAGE_KEY)
 		.then(decks => {
 			return JSON.parse(decks);
@@ -18,7 +18,7 @@ export const getDecks = ()=> {
  * @param id - the id of the deck to get
  * @returns {{}} the deck
  */
-export const getDeck =(id) => {
+export const getDeck = (id) => {
 	return {}
 };
 
@@ -40,6 +40,19 @@ export const saveDeckTitle = title => {
  * @param title - the title of the deck
  * @param card - the card to be added to the deck
  */
-export const addCartToDeck = (title, card)=> {
-
+export const addCartToDeck = (title, card) => {
+	return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+		.then((decks) => {
+			const parsedDecks = JSON.parse(decks);
+			if (parsedDecks[title]) {
+				const questions = parsedDecks[title].questions;
+				AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify({
+					...parsedDecks,
+					[title]: {
+						...parsedDecks[title],
+						questions: questions.concat(card)
+					}
+				}));
+			}
+		});
 };
