@@ -15,13 +15,13 @@ export const QuizResume = ({rightQuestions, totalQuestions}) => {
 					(
 						<View>
 							<Text>🎉 Congratulations!!!</Text>
-							<Text>You got {rightQuestions} of {totalQuestions} questions right!</Text>
+							<Text>You got {rightQuestions} of {totalQuestions} right questions!</Text>
 						</View>
 					) :
 					(
 						<View>
 							<Text>So sorry 🙁!!</Text>
-							<Text>You only got {rightQuestions} of {totalQuestions} right.</Text>
+							<Text>You only got {rightQuestions} of {totalQuestions} right questions.</Text>
 							<Text>Go study and try it again when you're ready!! 💪🏻</Text>
 						</View>
 					)
