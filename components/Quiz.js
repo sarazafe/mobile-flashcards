@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {View} from "react-native";
 import {connect} from 'react-redux';
-import {Button} from "./Button";
 import {Text} from "react-native-web";
 import {QuizResume} from "./QuizResume";
 import {QuizQuestionSection} from "./QuizQuestionSection";
+import {QuizAnswerSection} from "./QuizAnswerSection";
 
 /**
  * Component where quiz takes place
@@ -58,6 +58,7 @@ class Quiz extends Component {
 				...currentState,
 				currentQuestion,
 				remainingQuestions: questions,
+				showQuestion: true,
 			}
 		});
 	};
@@ -85,28 +86,18 @@ class Quiz extends Component {
 								<Text>{remainingQuestions.length}/{totalQuestions}</Text>
 								{
 									showQuestion ?
-										(
-											<QuizQuestionSection question={currentQuestion}
-											                     answerQuestionFn={this.answerQuestion}
-											                     toggleQuestionFn={this.toggleQuestion}/>
-										) : (
-											<View>
-												<View>
-													<Text>{currentQuestion.answer}</Text>
-												</View>
-												<View><Button style={{padding: 10}} onPress={this.toggleQuestion}>
-													Back to question
-												</Button>
-												</View>
-											</View>
-										)
+										<QuizQuestionSection question={currentQuestion}
+										                     toggleQuestionFn={this.toggleQuestion}/>
+										:
+										<QuizAnswerSection question={currentQuestion}
+										                   answerQuestionFn={this.answerQuestion}
+										                   toggleQuestionFn={this.toggleQuestion}/>
+
 								}
 							</View>
 						)
 						:
-						(
-							<QuizResume rightQuestions={rightQuestions} totalQuestions={totalQuestions}/>
-						)
+						<QuizResume rightQuestions={rightQuestions} totalQuestions={totalQuestions}/>
 				}
 			</View>
 		);
