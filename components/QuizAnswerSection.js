@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text} from "react-native";
 import {Button} from "./Button";
 import {FontAwesome} from "@expo/vector-icons";
+import {cardShadowStyle, cardStyle} from "../utils/styles";
 
 /**
  * Component that represents the section of the quiz that shows the question
@@ -11,9 +12,10 @@ import {FontAwesome} from "@expo/vector-icons";
  */
 export const QuizAnswerSection = ({question, answerQuestionFn, toggleQuestionFn}) => {
 	return (
-		<View>
-			<View>
-				<Text>{question.answer}</Text>
+		<View style={cardStyle.container}>
+			<View style={[cardStyle.card, cardShadowStyle.shadow]}>
+				<Text style={cardStyle.cardIcon}>⌛️</Text>
+				<Text style={cardStyle.cardText}>{question.answer}</Text>
 			</View>
 			<View><Button style={{padding: 10}} onPress={() => {
 				toggleQuestionFn()

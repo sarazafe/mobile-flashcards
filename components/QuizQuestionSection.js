@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text} from "react-native";
 import {Button} from "./Button";
+import {cardShadowStyle, cardStyle} from "../utils/styles";
 
 /**
  * Component that represents the section of the quiz that shows the question
@@ -9,9 +10,10 @@ import {Button} from "./Button";
  */
 export const QuizQuestionSection = ({question, toggleQuestionFn}) => {
 	return (
-		<View>
-			<View>
-				<Text>{question.question}</Text>
+		<View style={cardStyle.container}>
+			<View style={[cardStyle.card, cardShadowStyle.shadow]}>
+				<Text style={cardStyle.cardIcon}>⏳</Text>
+				<Text style={cardStyle.cardText}>{question.question}</Text>
 			</View>
 			<View>
 				<Button style={{padding: 10}} onPress={() => {
