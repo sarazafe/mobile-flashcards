@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, TextInput} from "react-native";
-import {Button} from "./Button";
+import {StackActions} from "@react-navigation/native";
 import {connect} from "react-redux";
+import {Button} from "./Button";
 import {updateDeck} from "../actions";
 import {addCartToDeck} from "../api/api";
 
@@ -66,8 +67,8 @@ class AddCard extends Component {
 
 			this.resetState()
 
-			const {navigation} = this.props;
-			navigation.navigate('Details');
+			const popAction = StackActions.pop(1);
+			this.props.navigation.dispatch(popAction);
 		}).catch(() => {
 			this.setState({
 				question: '',

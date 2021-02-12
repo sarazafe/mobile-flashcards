@@ -4,6 +4,7 @@ import {View} from "react-native";
 import {getDecks} from "../api/api";
 import {receiveDecks} from "../actions";
 import {TouchableDeckCard} from "./TouchableDeckCard";
+import {DECK_DETAILS_PAGE} from "../utils/constants";
 
 /**
  * Component that represents the list of decks
@@ -21,7 +22,7 @@ class DeckList extends Component {
 	 * @param navigation - the navigation
 	 */
 	navigateToDetails = ({title, navigation}) => {
-		navigation.navigate('Details', {
+		navigation.navigate(DECK_DETAILS_PAGE, {
 			title,
 		});
 	}

@@ -4,6 +4,7 @@ import {Button} from "./Button";
 import {connect} from "react-redux";
 import {addDeck} from "../actions";
 import {saveDeckTitle} from "../api/api";
+import {HOME_PAGE} from "../utils/constants";
 
 /**
  * Component where a new deck is able to be added to the store
@@ -47,7 +48,7 @@ class AddDeck extends Component {
 			this.resetState();
 
 			const {navigation} = this.props;
-			navigation.navigate('Home');
+			navigation.navigate(HOME_PAGE);
 		}).catch(() => {
 			this.setState({
 				deckTitle: '',

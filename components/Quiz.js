@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Text} from "react-native-web";
 import {QuizQuestionSection} from "./QuizQuestionSection";
 import {QuizAnswerSection} from "./QuizAnswerSection";
+import {QUIZ_RESUME_PAGE} from "../utils/constants";
 
 /**
  * Component where quiz takes place
@@ -76,7 +77,7 @@ class Quiz extends Component {
 		if (remainingQuestions.length === 0) {
 			const {navigation, deck: {title}} = this.props;
 			const {rightQuestions, totalQuestions} = this.state;
-			navigation.navigate('Quiz resume', {
+			navigation.navigate(QUIZ_RESUME_PAGE, {
 				title,
 				rightQuestions,
 				totalQuestions,

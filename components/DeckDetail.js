@@ -3,6 +3,7 @@ import {View} from "react-native";
 import {connect} from 'react-redux';
 import {DeckCard} from "./DeckCard";
 import {Button} from "./Button";
+import {ADD_CARD_PAGE, QUIZ_PAGE} from "../utils/constants";
 
 /**
  * Component that shows the details of a deck
@@ -15,7 +16,7 @@ class DeckDetail extends Component {
 	 */
 	startQuiz = title => {
 		const {navigation} = this.props;
-		navigation.navigate('Quiz', {
+		navigation.navigate(QUIZ_PAGE, {
 			title,
 		});
 	};
@@ -26,7 +27,7 @@ class DeckDetail extends Component {
 	 */
 	navigateToAddCard = title => {
 		const {navigation} = this.props;
-		navigation.navigate('Add card', {
+		navigation.navigate(ADD_CARD_PAGE, {
 			title,
 		});
 	};
