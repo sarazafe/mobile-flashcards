@@ -59,6 +59,20 @@ export const addCartToDeck = (title, card) => {
 };
 
 /**
+ * Removes a deck by its title
+ * @param title - the title of the deck to remove
+ */
+export const removeDeck = (title) => {
+	return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+		.then((decks) => {
+			const parsedDecks = JSON.parse(decks)
+			parsedDecks[title] = undefined
+			delete parsedDecks[title]
+			AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(parsedDecks))
+		})
+};
+
+/**
  * Saves the results of a quiz
  * @param title - the title of the deck
  * @param rightQuestions - the total of questions that the user answered correctly
