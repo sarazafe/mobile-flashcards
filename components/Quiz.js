@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text} from "react-native";
+import {View, Text, StyleSheet} from "react-native";
 import {connect} from 'react-redux';
 import {QuizQuestionSection} from "./QuizQuestionSection";
 import {QuizAnswerSection} from "./QuizAnswerSection";
 import {QUIZ_RESUME_PAGE} from "../utils/constants";
 import {saveQuizResults} from "../api/api";
 import {commonStyles} from "../utils/styles";
+import {Blue, DarkBlue} from "../utils/colors";
 
 /**
  * Component where quiz takes place
@@ -125,8 +126,10 @@ class Quiz extends Component {
 
 		return (
 			<View style={commonStyles.container}>
-				<Text>Let's start the quiz!</Text>
-				<Text>{remainingQuestions.length}/{totalQuestions}</Text>
+				<View style={styles.header}>
+					<Text style={styles.title}>Let's play!</Text>
+					<Text style={styles.subTitle}>{remainingQuestions.length}/{totalQuestions}</Text>
+				</View>
 				{
 					showQuestion ?
 						<QuizQuestionSection question={currentQuestion}
@@ -150,4 +153,22 @@ const mapStateToProps = (decks, {route: {params: {title}}}) => {
 
 export default connect(
 	mapStateToProps,
-)(Quiz)
+)(Quiz);
+
+const styles = StyleSheet.create({
+	header: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginTop: 20,
+	},
+	title: {
+		color: DarkBlue,
+		fontSize: 20,
+		marginBottom: 10,
+	},
+	subTitle: {
+		color: Blue,
+		fontWeight: 'bold',
+		fontSize: 15,
+	}
+});
