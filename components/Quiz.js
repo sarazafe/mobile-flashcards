@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {View} from "react-native";
 import {connect} from 'react-redux';
 import {Text} from "react-native-web";
-import {QuizResume} from "./QuizResume";
 import {QuizQuestionSection} from "./QuizQuestionSection";
 import {QuizAnswerSection} from "./QuizAnswerSection";
 
@@ -19,6 +18,27 @@ class Quiz extends Component {
 	};
 
 	componentDidMount() {
+		const {navigation} = this.props;
+		this.unsubscribeFocusListener = navigation.addListener('focus', () => {
+			this.initQuiz();
+		});
+
+		this.unsubscribeBlurListener = navigation.addListener('blur', () => {
+			this.setState({
+				showQuestion: true,
+			});
+		});
+	}
+
+	componentWillUnmount() {
+		this.unsubscribeFocusListener();
+		this.unsubscribeBlurListener();
+	}
+
+	/**
+	 * Inits the quiz. It sets the initial state.
+	 */
+	initQuiz = () => {
 		const {deck: {questions}} = this.props;
 
 		// Shuffle the questions
@@ -28,8 +48,10 @@ class Quiz extends Component {
 			currentQuestion: currentQuestion,
 			remainingQuestions: shuffledQuestions,
 			totalQuestions: questions.length,
+			rightQuestions: 0,
+			showQuestion: true,
 		});
-	}
+	};
 
 	/**
 	 * Answers the question. Increments the number of right answers and shows the next question
@@ -40,16 +62,28 @@ class Quiz extends Component {
 			this.setState((currentState) => ({
 				...currentState,
 				rightQuestions: currentState.rightQuestions + 1
-			}));
+			}), this.showNextQuestion);
+		} else {
+			this.showNextQuestion();
 		}
-
-		this.showNextQuestion();
 	};
 
 	/**
 	 * Shows next question
 	 */
 	showNextQuestion = () => {
+		const {remainingQuestions} = this.state;
+		if (remainingQuestions.length === 0) {
+			const {navigation, deck: {title}} = this.props;
+			const {rightQuestions, totalQuestions} = this.state;
+			navigation.navigate('Quiz resume', {
+				title,
+				rightQuestions,
+				totalQuestions,
+			});
+			return;
+		}
+
 		this.setState((currentState) => {
 			const {remainingQuestions} = currentState;
 			const questions = [...remainingQuestions];
@@ -61,6 +95,8 @@ class Quiz extends Component {
 				showQuestion: true,
 			}
 		});
+
+
 	};
 
 	/**
@@ -74,30 +110,21 @@ class Quiz extends Component {
 	};
 
 	render() {
-		const {currentQuestion, remainingQuestions, totalQuestions, rightQuestions, showQuestion} = this.state;
+		const {currentQuestion, remainingQuestions, totalQuestions, showQuestion} = this.state;
 
 		return (
 			<View>
+				<Text>Let's start the quiz!</Text>
+				<Text>{remainingQuestions.length}/{totalQuestions}</Text>
 				{
-					currentQuestion ?
-						(
-							<View>
-								<Text>Let's start the quiz!</Text>
-								<Text>{remainingQuestions.length}/{totalQuestions}</Text>
-								{
-									showQuestion ?
-										<QuizQuestionSection question={currentQuestion}
-										                     toggleQuestionFn={this.toggleQuestion}/>
-										:
-										<QuizAnswerSection question={currentQuestion}
-										                   answerQuestionFn={this.answerQuestion}
-										                   toggleQuestionFn={this.toggleQuestion}/>
-
-								}
-							</View>
-						)
+					showQuestion ?
+						<QuizQuestionSection question={currentQuestion}
+						                     toggleQuestionFn={this.toggleQuestion}/>
 						:
-						<QuizResume rightQuestions={rightQuestions} totalQuestions={totalQuestions}/>
+						<QuizAnswerSection question={currentQuestion}
+						                   answerQuestionFn={this.answerQuestion}
+						                   toggleQuestionFn={this.toggleQuestion}/>
+
 				}
 			</View>
 		);
