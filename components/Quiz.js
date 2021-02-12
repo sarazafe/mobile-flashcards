@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from "react-native";
+import {ScrollView, View, Text, StyleSheet} from "react-native";
 import {connect} from 'react-redux';
 import {QuizQuestionSection} from "./QuizQuestionSection";
 import {QuizAnswerSection} from "./QuizAnswerSection";
@@ -125,7 +125,7 @@ class Quiz extends Component {
 		const {currentQuestion, remainingQuestions, totalQuestions, showQuestion} = this.state;
 
 		return (
-			<View style={commonStyles.container}>
+			<ScrollView style={commonStyles.container}>
 				<View style={styles.header}>
 					<Text style={styles.title}>Let's play!</Text>
 					<Text style={styles.subTitle}>{remainingQuestions.length}/{totalQuestions}</Text>
@@ -140,7 +140,7 @@ class Quiz extends Component {
 						                   toggleQuestionFn={this.toggleQuestion}/>
 
 				}
-			</View>
+			</ScrollView>
 		);
 	}
 }
