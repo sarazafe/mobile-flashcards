@@ -5,6 +5,7 @@ import {Text} from "react-native-web";
 import {QuizQuestionSection} from "./QuizQuestionSection";
 import {QuizAnswerSection} from "./QuizAnswerSection";
 import {QUIZ_RESUME_PAGE} from "../utils/constants";
+import {saveQuizResults} from "../api/api";
 
 /**
  * Component where quiz takes place
@@ -70,13 +71,22 @@ class Quiz extends Component {
 	};
 
 	/**
-	 * Shows next question
+	 * Shows next question. If there are no more questions to show,
+	 * saves the results of the quiz in async storage and navigates to
+	 * quiz resume page
 	 */
 	showNextQuestion = () => {
 		const {remainingQuestions} = this.state;
 		if (remainingQuestions.length === 0) {
 			const {navigation, deck: {title}} = this.props;
 			const {rightQuestions, totalQuestions} = this.state;
+
+			saveQuizResults({
+				title,
+				rightQuestions,
+				totalQuestions,
+			});
+
 			navigation.navigate(QUIZ_RESUME_PAGE, {
 				title,
 				rightQuestions,

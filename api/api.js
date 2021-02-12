@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
 const DECKS_STORAGE_KEY = 'MobileFlashcards:decks';
+const QUIZ_RESULTS_STORAGE_KEY = 'MobileFlashcards:quizResults';
 
 /**
  * Gets all decks in storage
@@ -54,5 +55,34 @@ export const addCartToDeck = (title, card) => {
 					}
 				}));
 			}
+		});
+};
+
+/**
+ * Saves the results of a quiz
+ * @param title - the title of the deck
+ * @param rightQuestions - the total of questions that the user answered correctly
+ * @param totalQuestions - the total questions of the deck
+ */
+export const saveQuizResults = ({title, rightQuestions, totalQuestions}) => {
+	return AsyncStorage.getItem(QUIZ_RESULTS_STORAGE_KEY)
+		.then((data) => {
+			const results = JSON.parse(data);
+			let previousQuizzesOfToday = [];
+			if (results && results[new Date().toLocaleDateString()]) {
+				previousQuizzesOfToday = results[new Date().toLocaleDateString()];
+			}
+
+			AsyncStorage.setItem(QUIZ_RESULTS_STORAGE_KEY, JSON.stringify({
+				...results,
+				[new Date().toLocaleDateString()]: [
+					...previousQuizzesOfToday,
+					{
+						deck: title,
+						rightQuestions,
+						totalQuestions
+					}
+				]
+			}));
 		});
 };
