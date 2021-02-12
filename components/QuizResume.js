@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text} from "react-native";
 import { StackActions } from '@react-navigation/native';
 import {Button} from "./Button";
+import {commonStyles} from "../utils/styles";
 
 /**
  * Component that represents a quiz resume
@@ -29,7 +30,7 @@ export default class QuizResume extends Component {
 	render() {
 		const {route: {params: {rightQuestions, totalQuestions}}} = this.props;
 		return (
-			<View>
+			<View style={commonStyles.container}>
 				<Text>End of quiz!</Text>
 				{
 					(rightQuestions / totalQuestions) * 100 > 50 ?

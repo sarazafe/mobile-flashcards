@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {Button} from "./Button";
 import {updateDeck} from "../actions";
 import {addCartToDeck} from "../api/api";
+import {commonStyles} from "../utils/styles";
 
 /**
  * Component where a new deck is able to be added to the store
@@ -122,7 +123,7 @@ class AddCard extends Component {
 	render() {
 		const {errorMsg} = this.state;
 		return (
-			<View>
+			<View style={commonStyles.container}>
 				{
 					errorMsg ? this.renderErrorView() : this.renderFormView()
 				}

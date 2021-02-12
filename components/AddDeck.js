@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {addDeck} from "../actions";
 import {saveDeckTitle} from "../api/api";
 import {HOME_TAB} from "../utils/constants";
+import {commonStyles} from "../utils/styles";
 
 /**
  * Component where a new deck is able to be added to the store
@@ -60,7 +61,7 @@ class AddDeck extends Component {
 	render() {
 		const {errorMsg} = this.state;
 		return (
-			<View>
+			<View style={commonStyles.container}>
 				{
 					errorMsg ? this.renderErrorView() : this.renderFormView()
 				}

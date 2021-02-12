@@ -5,6 +5,7 @@ import {getDecks} from "../api/api";
 import {receiveDecks} from "../actions";
 import {TouchableDeckCard} from "./TouchableDeckCard";
 import {DECK_DETAILS_PAGE} from "../utils/constants";
+import {commonStyles} from "../utils/styles";
 
 /**
  * Component that represents the list of decks
@@ -30,7 +31,7 @@ class DeckList extends Component {
 	render() {
 		const {decks, navigation} = this.props;
 		return (
-			<View>
+			<View style={commonStyles.container}>
 				{
 					Object.values(decks).map(({title, questions}) => (
 						<TouchableDeckCard key={title} title={title} numberOfCards={questions.length}
@@ -57,4 +58,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(DeckList)
+)(DeckList);

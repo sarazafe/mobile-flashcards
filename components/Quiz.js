@@ -5,6 +5,7 @@ import {QuizQuestionSection} from "./QuizQuestionSection";
 import {QuizAnswerSection} from "./QuizAnswerSection";
 import {QUIZ_RESUME_PAGE} from "../utils/constants";
 import {saveQuizResults} from "../api/api";
+import {commonStyles} from "../utils/styles";
 
 /**
  * Component where quiz takes place
@@ -123,7 +124,7 @@ class Quiz extends Component {
 		const {currentQuestion, remainingQuestions, totalQuestions, showQuestion} = this.state;
 
 		return (
-			<View>
+			<View style={commonStyles.container}>
 				<Text>Let's start the quiz!</Text>
 				<Text>{remainingQuestions.length}/{totalQuestions}</Text>
 				{

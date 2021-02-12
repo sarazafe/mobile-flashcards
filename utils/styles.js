@@ -1,4 +1,5 @@
-import {Blue, White} from "./colors";
+import {Blue, LightSalmon, White} from "./colors";
+import {StyleSheet} from "react-native";
 
 export const navigatorScreenOptions = {
 	headerStyle: {
@@ -10,3 +11,10 @@ export const navigatorScreenOptions = {
 		fontSize: 20,
 	}
 };
+
+export const commonStyles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: LightSalmon,
+	},
+});

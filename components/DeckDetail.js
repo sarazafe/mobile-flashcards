@@ -7,6 +7,7 @@ import {ADD_CARD_PAGE, QUIZ_PAGE} from "../utils/constants";
 import {removeDeck as removeDeckFromStorage} from "../api/api";
 import {StackActions} from "@react-navigation/native";
 import {removeDeck} from "../actions";
+import {commonStyles} from "../utils/styles";
 
 /**
  * Component that shows the details of a deck
@@ -50,7 +51,7 @@ class DeckDetail extends Component {
 	render() {
 		const {deck: {title, questions}} = this.props;
 		return (
-			<View>
+			<View style={commonStyles.container}>
 				<DeckCard title={title} numberOfCards={questions.length}/>
 
 				<View>
