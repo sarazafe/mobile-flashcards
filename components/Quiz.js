@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {View} from "react-native";
+import {View, Text} from "react-native";
 import {connect} from 'react-redux';
-import {Text} from "react-native-web";
 import {QuizQuestionSection} from "./QuizQuestionSection";
 import {QuizAnswerSection} from "./QuizAnswerSection";
 import {QUIZ_RESUME_PAGE} from "../utils/constants";

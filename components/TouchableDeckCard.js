@@ -10,8 +10,8 @@ import {DeckCard} from "./DeckCard";
  */
 export const TouchableDeckCard = ({title, numberOfCards, onPress}) => {
 	return (
-		<TouchableOpacity onPress={onPress}>
-			<DeckCard title={title} numberOfCards={numberOfCards}/>
-		</TouchableOpacity>
+			<TouchableOpacity onPress={onPress}>
+				<DeckCard title={title} numberOfCards={numberOfCards}/>
+			</TouchableOpacity>
 	)
 };
