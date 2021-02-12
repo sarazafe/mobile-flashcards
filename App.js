@@ -5,9 +5,9 @@ import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {decks as reducer} from './reducers';
-import AddDeck from "./components/AddDeck";
 import {Home} from "./components/Home";
-import {ADD_DECK_PAGE, HOME_PAGE} from "./utils/constants";
+import {AddDeckTab} from "./components/AddDeckTab";
+import { ADD_DECK_TAB, HOME_TAB} from "./utils/constants";
 
 export default function App() {
 	const Tab = createBottomTabNavigator();
@@ -15,8 +15,8 @@ export default function App() {
 		<Provider store={createStore(reducer)}>
 			<NavigationContainer style={styles.container}>
 				<Tab.Navigator>
-					<Tab.Screen name={HOME_PAGE} component={Home} />
-					<Tab.Screen name={ADD_DECK_PAGE} component={AddDeck} />
+					<Tab.Screen name={HOME_TAB} component={Home} />
+					<Tab.Screen name={ADD_DECK_TAB} component={AddDeckTab} />
 				</Tab.Navigator>
 			</NavigationContainer>
 		</Provider>

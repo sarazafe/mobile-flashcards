@@ -4,7 +4,7 @@ import {Button} from "./Button";
 import {connect} from "react-redux";
 import {addDeck} from "../actions";
 import {saveDeckTitle} from "../api/api";
-import {HOME_PAGE} from "../utils/constants";
+import {HOME_TAB} from "../utils/constants";
 
 /**
  * Component where a new deck is able to be added to the store
@@ -48,11 +48,11 @@ class AddDeck extends Component {
 			this.resetState();
 
 			const {navigation} = this.props;
-			navigation.navigate(HOME_PAGE);
+			navigation.navigate(HOME_TAB);
 		}).catch(() => {
 			this.setState({
 				deckTitle: '',
-				errorMsg: 'Sorry, there was be an error adding the deck. Please, try it again.',
+				errorMsg: 'Sorry, there was an error adding the deck. Please, try it again.',
 			});
 		});
 	};
