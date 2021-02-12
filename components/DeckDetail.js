@@ -4,6 +4,9 @@ import {connect} from 'react-redux';
 import {DeckCard} from "./DeckCard";
 import {Button} from "./Button";
 import {ADD_CARD_PAGE, QUIZ_PAGE} from "../utils/constants";
+import {removeDeck as removeDeckFromStorage} from "../api/api";
+import {StackActions} from "@react-navigation/native";
+import {removeDeck} from "../actions";
 
 /**
  * Component that shows the details of a deck
@@ -32,6 +35,18 @@ class DeckDetail extends Component {
 		});
 	};
 
+	/**
+	 * Removes a deck
+	 * @param title - the title of the deck to remove
+	 */
+	removeDeck = title => {
+		removeDeckFromStorage(title).then(() => {
+			const popAction = StackActions.pop(1);
+			this.props.navigation.dispatch(popAction);
+			this.props.removeDeck(title);
+		});
+	};
+
 	render() {
 		const {deck: {title, questions}} = this.props;
 		return (
@@ -47,6 +62,12 @@ class DeckDetail extends Component {
 						Add a card
 					</Button>
 				</View>
+
+				<View>
+					<Button style={{padding: 10}} onPress={() => this.removeDeck(title)}>
+						Remove deck
+					</Button>
+				</View>
 			</View>
 		)
 			;
@@ -59,6 +80,13 @@ const mapStateToProps = (decks, {route: {params: {title}}}) => {
 	};
 };
 
+const mapDispatchToProps = dispatch => {
+	return {
+		removeDeck: deck => dispatch(removeDeck(deck))
+	};
+};
+
 export default connect(
 	mapStateToProps,
+	mapDispatchToProps,
 )(DeckDetail)
