@@ -1,4 +1,4 @@
-import {RECEIVE_DECKS, ADD_DECK, UPDATE_DECK} from "../actions";
+import {RECEIVE_DECKS, ADD_DECK, UPDATE_DECK, REMOVE_DECK} from "../actions";
 
 /**
  * Reducer for decks
@@ -26,6 +26,12 @@ export const decks = (state = {}, action) => {
 					...state[action.deck.title],
 					questions: questions.concat(action.deck.question)
 				}
+			};
+		case REMOVE_DECK:
+			const stateCopy = {...state};
+			delete stateCopy[action.deck];
+			return {
+				...stateCopy
 			};
 		default :
 			return state;

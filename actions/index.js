@@ -1,6 +1,7 @@
 export const RECEIVE_DECKS = 'RECEIVE_DECKS';
 export const ADD_DECK = 'ADD_DECK';
 export const UPDATE_DECK = 'UPDATE_DECK';
+export const REMOVE_DECK = 'REMOVE_DECK';
 
 /**
  * Action to receive the decks
@@ -34,6 +35,18 @@ export const addDeck = deck => {
 export const updateDeck = deck => {
 	return {
 		type: UPDATE_DECK,
+		deck,
+	};
+};
+
+/**
+ * Action to remove a deck
+ * @param deck - the title of the deck to remove
+ * @returns {{type: string, title: *}} - the action with the deck
+ */
+export const removeDeck = deck => {
+	return {
+		type: REMOVE_DECK,
 		deck,
 	};
 };
