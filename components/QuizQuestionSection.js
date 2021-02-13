@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from "react-native";
-import {Button} from "./Button";
 import {cardShadowStyle, cardStyle} from "../utils/styles";
+import {Blue} from "../utils/colors";
 
 /**
  * Component that represents the section of the quiz that shows the question
@@ -20,11 +20,7 @@ export const QuizQuestionSection = ({question, toggleQuestionFn}) => {
 				</View>
 			</TouchableOpacity>
 			<View>
-				<Button style={{padding: 10}} onPress={() => {
-					toggleQuestionFn()
-				}}>
-					Show the answer!
-				</Button>
+				<Text style={{color: Blue}}>Click on the card to see the answer!</Text>
 			</View>
 		</View>
 	);

@@ -59,13 +59,13 @@ class DeckDetail extends Component {
 					        disabled={questions.length === 0}>
 						Start the quiz!
 					</Button>
-					<Button style={{padding: 10}} onPress={() => this.navigateToAddCard(title)}>
+					<Button onPress={() => this.navigateToAddCard(title)}>
 						Add a card
 					</Button>
 				</View>
 
 				<View>
-					<Button style={{padding: 10}} onPress={() => this.removeDeck(title)}>
+					<Button onPress={() => this.removeDeck(title)}>
 						Remove deck
 					</Button>
 				</View>
