@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View} from "react-native";
+import {ScrollView} from "react-native";
 import {getDecks} from "../api/api";
 import {receiveDecks} from "../actions";
 import {TouchableDeckCard} from "./TouchableDeckCard";
@@ -31,14 +31,14 @@ class DeckList extends Component {
 	render() {
 		const {decks, navigation} = this.props;
 		return (
-			<View style={commonStyles.container}>
+			<ScrollView style={commonStyles.container}>
 				{
 					Object.values(decks).map(({title, questions}) => (
 						<TouchableDeckCard key={title} title={title} numberOfCards={questions.length}
 						                   onPress={() => this.navigateToDetails({title, navigation})}/>
 					))
 				}
-			</View>
+			</ScrollView>
 		);
 	}
 }
