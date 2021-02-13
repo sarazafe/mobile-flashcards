@@ -1,4 +1,4 @@
-import {Black, Blue, DarkBlue, LightSalmon, White} from "./colors";
+import {Black, Blue, DarkBlue, Green, LightSalmon, White} from "./colors";
 import {StyleSheet} from "react-native";
 
 export const navigatorScreenOptions = {
@@ -62,4 +62,26 @@ export const cardStyle = StyleSheet.create({
 		color: DarkBlue,
 		textAlign: 'center',
 	},
+});
+
+export const formStyles = StyleSheet.create({
+	header: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginTop: 20,
+	},
+	title: {
+		color: DarkBlue,
+		fontSize: 18,
+		marginBottom: 10,
+	},
+	input: {
+		color: Blue,
+		fontSize: 15,
+		backgroundColor: White,
+		borderColor: Green,
+		borderWidth: 1,
+		margin: 20,
+		padding: 10,
+	}
 });

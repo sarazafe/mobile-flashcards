@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {Button} from "./Button";
 import {updateDeck} from "../actions";
 import {addCartToDeck} from "../api/api";
-import {commonStyles} from "../utils/styles";
+import {commonStyles, formStyles} from "../utils/styles";
 
 /**
  * Component where a new deck is able to be added to the store
@@ -100,15 +100,17 @@ class AddCard extends Component {
 		const {question, answer} = this.state;
 		return (
 			<View>
-				<Text>Let's add a new card to {title} deck!!</Text>
+				<View style={formStyles.header}>
+					<Text style={formStyles.title}>Let's add a new card to {title} deck!!</Text>
+				</View>
 				<TextInput
-					style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+					style={formStyles.input}
 					onChangeText={text => this.updateQuestion(text)}
 					placeholder='Write a question'
 					value={question}
 				/>
 				<TextInput
-					style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+					style={formStyles.input}
 					onChangeText={text => this.updateAnswer(text)}
 					placeholder='Write an answer'
 					value={answer}
@@ -147,4 +149,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(AddCard)
+)(AddCard);

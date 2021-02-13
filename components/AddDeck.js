@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {addDeck} from "../actions";
 import {saveDeckTitle} from "../api/api";
 import {HOME_TAB} from "../utils/constants";
-import {commonStyles} from "../utils/styles";
+import {commonStyles, formStyles} from "../utils/styles";
 
 /**
  * Component where a new deck is able to be added to the store
@@ -87,18 +87,22 @@ class AddDeck extends Component {
 	 */
 	renderFormView = () => {
 		const {deckTitle} = this.state;
-		return (<View>
-			<Text>Let's add a new deck!!</Text>
-			<TextInput
-				style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-				onChangeText={text => this.updateDeckTitle(text)}
-				placeholder='Introduce a title for the new deck'
-				value={deckTitle}
-			/>
-			<Button onPress={this.addDeck} disabled={!deckTitle}>
-				Add deck
-			</Button>
-		</View>);
+		return (
+			<View>
+				<View style={formStyles.header}>
+					<Text style={formStyles.title}>Let's add a new deck!!</Text>
+				</View>
+				<TextInput
+					style={formStyles.input}
+					onChangeText={text => this.updateDeckTitle(text)}
+					placeholder='Introduce a title for the new deck'
+					value={deckTitle}
+				/>
+				<Button onPress={this.addDeck} disabled={!deckTitle}>
+					Add deck
+				</Button>
+			</View>
+		);
 	};
 }
 
@@ -113,4 +117,4 @@ export default connect(
 		return {}
 	},
 	mapDispatchToProps
-)(AddDeck)
+)(AddDeck);
