@@ -53,11 +53,11 @@ export default class QuizResume extends Component {
 				}
 
 				<View>
-					<Button style={{padding: 10}} onPress={this.restartQuiz}>
+					<Button onPress={this.restartQuiz}>
 						Restart the quiz!
 					</Button>
 
-					<Button style={{padding: 10}} onPress={this.goToDeckDetails}>
+					<Button onPress={this.goToDeckDetails}>
 						Back to deck
 					</Button>
 				</View>
@@ -68,8 +68,8 @@ export default class QuizResume extends Component {
 
 const styles = StyleSheet.create({
 	mainContainer: {
-		paddingLeft: 50,
-		paddingRight: 50,
+		paddingLeft: 30,
+		paddingRight: 30,
 	},
 	container: {
 		alignItems: 'center',

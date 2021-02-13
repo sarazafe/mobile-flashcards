@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native'
+import {Blue, Green, White} from "../utils/colors";
 
 export const Button = ({children, disabled, onPress}) => {
 	const buttonStyles = [styles.button, disabled ? styles.disabledButton : ''];
@@ -16,20 +17,22 @@ export const Button = ({children, disabled, onPress}) => {
 
 const styles = StyleSheet.create({
 	button: {
-		backgroundColor: 'purple',
-		padding: 5,
+		backgroundColor: Blue,
+		paddingTop: 8,
+		paddingBottom: 8,
+		paddingLeft: 6,
+		paddingRight: 6,
 		borderRadius: 7,
-		height: 30,
-		marginLeft: 60,
-		marginRight: 60,
+		marginLeft: 40,
+		marginRight: 40,
 		marginTop: 10,
 	},
 	disabledButton: {
-		backgroundColor: 'gray',
+		backgroundColor: Green,
 	},
 	buttonText: {
-		color: 'white',
-		fontSize: 18,
+		color: White,
+		fontSize: 16,
 		textAlign: 'center'
 	},
 });

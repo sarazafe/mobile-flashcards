@@ -76,7 +76,7 @@ class AddDeck extends Component {
 		const {errorMsg} = this.state;
 		return (<View>
 			<Text>{errorMsg}</Text>
-			<Button style={{padding: 10}} onPress={this.resetState}>
+			<Button onPress={this.resetState}>
 				Try again!
 			</Button>
 		</View>);
@@ -95,7 +95,7 @@ class AddDeck extends Component {
 				placeholder='Introduce a title for the new deck'
 				value={deckTitle}
 			/>
-			<Button style={{padding: 10}} onPress={this.addDeck} disabled={!deckTitle}>
+			<Button onPress={this.addDeck} disabled={!deckTitle}>
 				Add deck
 			</Button>
 		</View>);

@@ -86,7 +86,7 @@ class AddCard extends Component {
 		const {errorMsg} = this.state;
 		return (<View>
 			<Text>{errorMsg}</Text>
-			<Button style={{padding: 10}} onPress={this.resetState}>
+			<Button onPress={this.resetState}>
 				Try again!
 			</Button>
 		</View>);
@@ -113,7 +113,7 @@ class AddCard extends Component {
 					placeholder='Write an answer'
 					value={answer}
 				/>
-				<Button style={{padding: 10}} onPress={this.addCard} disabled={!question || !answer}>
+				<Button onPress={this.addCard} disabled={!question || !answer}>
 					Add card
 				</Button>
 			</View>

@@ -55,7 +55,7 @@ class DeckDetail extends Component {
 				<DeckCard title={title} numberOfCards={questions.length}/>
 
 				<View>
-					<Button style={{padding: 10}} onPress={() => this.startQuiz(title)}
+					<Button onPress={() => this.startQuiz(title)}
 					        disabled={questions.length === 0}>
 						Start the quiz!
 					</Button>
