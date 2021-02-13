@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import {View} from "react-native";
+import {Text, View, StyleSheet} from "react-native";
 import {connect} from 'react-redux';
-import {DeckCard} from "./DeckCard";
+import {FontAwesome5} from '@expo/vector-icons';
 import {Button} from "./Button";
 import {ADD_CARD_PAGE, QUIZ_PAGE} from "../utils/constants";
 import {removeDeck as removeDeckFromStorage} from "../api/api";
 import {StackActions} from "@react-navigation/native";
 import {removeDeck} from "../actions";
 import {commonStyles} from "../utils/styles";
+import {Blue, DarkSalmon} from "../utils/colors";
+import {TouchableDeckCard} from "./TouchableDeckCard";
 
 /**
  * Component that shows the details of a deck
@@ -16,10 +18,14 @@ class DeckDetail extends Component {
 
 	/**
 	 * Starts the quiz
-	 * @param title - the title of the deck
 	 */
-	startQuiz = title => {
-		const {navigation} = this.props;
+	startQuiz = () => {
+		const {deck: {questions}} = this.props;
+		if (questions.length === 0) {
+			return;
+		}
+
+		const {deck: {title}, navigation} = this.props;
 		navigation.navigate(QUIZ_PAGE, {
 			title,
 		});
@@ -52,21 +58,28 @@ class DeckDetail extends Component {
 		const {deck: {title, questions}} = this.props;
 		return (
 			<View style={commonStyles.container}>
-				<DeckCard title={title} numberOfCards={questions.length}/>
+				<TouchableDeckCard title={title} numberOfCards={questions.length}
+				                   onPress={() => this.startQuiz()}/>
+				<View style={{alignItems: 'center', justifyContent: 'center'}}>
+					{
+						questions.length > 0 ?
+							<Text style={{color: Blue}}>Click on the card to start the quiz!</Text>
+							:
+							<View style={styles.noCardsContainer}>
+								<FontAwesome5 name="exclamation" size={15} color={DarkSalmon}/>
+								<Text style={{color: Blue, marginLeft: 10}}>Add some cards to start the quiz</Text>
+							</View>
+					}
 
-				<View>
-					<Button onPress={() => this.startQuiz(title)}
-					        disabled={questions.length === 0}>
-						Start the quiz!
-					</Button>
+
+				</View>
+
+				<View style={{marginTop: 30}}>
 					<Button onPress={() => this.navigateToAddCard(title)}>
 						Add a card
 					</Button>
-				</View>
-
-				<View>
 					<Button onPress={() => this.removeDeck(title)}>
-						Remove deck
+						Remove the deck
 					</Button>
 				</View>
 			</View>
@@ -90,4 +103,12 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(DeckDetail)
+)(DeckDetail);
+
+const styles = StyleSheet.create({
+	noCardsContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+	}
+});
