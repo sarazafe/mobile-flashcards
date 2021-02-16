@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {ScrollView, View, Text, StyleSheet} from "react-native";
+import {ScrollView, View, Text, StyleSheet, TouchableOpacity, Animated} from "react-native";
 import {connect} from 'react-redux';
 import {QuizQuestionSection} from "./QuizQuestionSection";
 import {QuizAnswerSection} from "./QuizAnswerSection";
 import {QUIZ_RESUME_PAGE} from "../utils/constants";
 import {saveQuizResults} from "../api/api";
-import {commonStyles} from "../utils/styles";
+import {cardShadowStyle, cardStyle, commonStyles} from "../utils/styles";
 import {Blue, DarkBlue} from "../utils/colors";
 
 /**
@@ -18,6 +18,8 @@ class Quiz extends Component {
 		totalQuestions: 0,
 		rightQuestions: 0,
 		showQuestion: true,
+		animatedValue: new Animated.Value(0),
+		animationValue: 0,
 	};
 
 	componentDidMount() {
@@ -29,6 +31,16 @@ class Quiz extends Component {
 		this.unsubscribeBlurListener = navigation.addListener('blur', () => {
 			this.setState({
 				showQuestion: true,
+			});
+		});
+
+		this.setState({
+			animationValue: 0,
+		});
+		const {animatedValue} = this.state;
+		animatedValue.addListener(({value}) => {
+			this.setState({
+				animationValue: value,
 			});
 		});
 	}
@@ -53,6 +65,7 @@ class Quiz extends Component {
 			totalQuestions: questions.length,
 			rightQuestions: 0,
 			showQuestion: true,
+			animationValue: 0,
 		});
 	};
 
@@ -119,27 +132,102 @@ class Quiz extends Component {
 			...currentState,
 			showQuestion: !currentState.showQuestion,
 		}));
+		const {animatedValue} = this.state;
+		if (this.state.animationValue >= 90) {
+			Animated.spring(animatedValue, {
+				toValue: 0,
+				friction: 8,
+				tension: 10,
+				useNativeDriver: true,
+			}).start();
+		} else {
+			Animated.spring(animatedValue, {
+				toValue: 180,
+				friction: 8,
+				tension: 10,
+				useNativeDriver: true,
+			}).start();
+		}
 	};
 
+	/**
+	 * Gets style for showing question animation
+	 */
+	getQuestionAnimatedStyle = () => (
+		{
+			transform: [
+				{
+					rotateY: this.questionInterpolate,
+				}
+			]
+		}
+	);
+
+	/**
+	 * Gets style for showing answer animation
+	 */
+	getAnswerAnimatedStyle = () => (
+		{
+			transform: [
+				{
+					rotateY: this.answerInterpolate,
+				}
+			]
+		}
+	);
+
 	render() {
-		const {currentQuestion, remainingQuestions, totalQuestions, showQuestion} = this.state;
+		const {currentQuestion, remainingQuestions, totalQuestions, showQuestion, animatedValue} = this.state;
+		const front = animatedValue.interpolate({
+			inputRange: [0, 180],
+			outputRange: ['0deg', '180deg'],
+		});
+		const back = animatedValue.interpolate({
+			inputRange: [0, 180],
+			outputRange: ['180deg', '360deg'],
+		});
 
 		return (
-			<ScrollView style={commonStyles.container}>
+			<ScrollView style={[commonStyles.container, {position: 'relative'}]}>
 				<View style={styles.header}>
 					<Text style={styles.title}>Let's play!</Text>
 					<Text style={styles.subTitle}>{remainingQuestions.length}/{totalQuestions}</Text>
 				</View>
-				{
-					showQuestion ?
-						<QuizQuestionSection question={currentQuestion}
-						                     toggleQuestionFn={this.toggleQuestion}/>
-						:
-						<QuizAnswerSection question={currentQuestion}
-						                   answerQuestionFn={this.answerQuestion}
-						                   toggleQuestionFn={this.toggleQuestion}/>
 
-				}
+				<View style={styles.cardContainer}>
+					<Animated.View style={[styles.cardAnimatedView, {transform: [{rotateY: front}]}]}>
+						<TouchableOpacity onPress={this.toggleQuestion}>
+							<View style={[cardStyle.card, cardShadowStyle.shadow]}>
+								<Text style={cardStyle.cardIcon}>⏳</Text>
+								<Text style={cardStyle.cardText}>{currentQuestion.question}</Text>
+							</View>
+						</TouchableOpacity>
+					</Animated.View>
+				</View>
+
+				<View style={styles.cardContainer}>
+					<Animated.View style={[styles.cardAnimatedView, {transform: [{rotateY: back}]}]}>
+						<TouchableOpacity onPress={this.toggleQuestion}>
+							<View style={[cardStyle.card, cardShadowStyle.shadow]}>
+								<Text style={cardStyle.cardIcon}>⌛️</Text>
+								<Text style={cardStyle.cardText}>{currentQuestion.answer}</Text>
+							</View>
+						</TouchableOpacity>
+					</Animated.View>
+				</View>
+
+				<View style={styles.actionsContainer}>
+					{
+						showQuestion ?
+							<QuizQuestionSection question={currentQuestion}
+							                     toggleQuestionFn={this.toggleQuestion}/>
+							:
+							<QuizAnswerSection question={currentQuestion}
+							                   answerQuestionFn={this.answerQuestion}
+							                   toggleQuestionFn={this.toggleQuestion}/>
+
+					}
+				</View>
 			</ScrollView>
 		);
 	}
@@ -170,5 +258,20 @@ const styles = StyleSheet.create({
 		color: Blue,
 		fontWeight: 'bold',
 		fontSize: 15,
-	}
+	},
+	actionsContainer: {
+		marginTop: 400,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	cardContainer: {
+		position: 'relative',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	cardAnimatedView: {
+		backfaceVisibility: 'hidden',
+		position: 'absolute',
+		top: 20,
+	},
 });

@@ -1,27 +1,14 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from "react-native";
-import {cardShadowStyle, cardStyle} from "../utils/styles";
+import {View, Text} from "react-native";
 import {Blue} from "../utils/colors";
 
 /**
- * Component that represents the section of the quiz that shows the question
- * @param question - the question
- * @param toggleQuestionFn - the function to toggle between this section and answer section
+ * Component that represents the section of the quiz that shows the actions related to the question
  */
-export const QuizQuestionSection = ({question, toggleQuestionFn}) => {
+export const QuizQuestionSection = () => {
 	return (
-		<View style={cardStyle.container}>
-			<TouchableOpacity onPress={() => {
-				toggleQuestionFn()
-			}}>
-				<View style={[cardStyle.card, cardShadowStyle.shadow]}>
-					<Text style={cardStyle.cardIcon}>⏳</Text>
-					<Text style={cardStyle.cardText}>{question.question}</Text>
-				</View>
-			</TouchableOpacity>
 			<View>
 				<Text style={{color: Blue}}>Click on the card to see the answer!</Text>
 			</View>
-		</View>
 	);
 };
