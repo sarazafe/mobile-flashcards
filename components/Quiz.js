@@ -79,6 +79,7 @@ class Quiz extends Component {
 		} else {
 			this.showNextQuestion();
 		}
+		this.flipCard();
 	};
 
 	/**
@@ -131,6 +132,13 @@ class Quiz extends Component {
 		}));
 
 		// Animate the toggle action
+		this.flipCard();
+	};
+
+	/**
+	 * Flips the card
+	 */
+	flipCard = ()=> {
 		const {animatedValue} = this.state;
 		if (this.state.animationValue >= 90) {
 			Animated.spring(animatedValue, {
