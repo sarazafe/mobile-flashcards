@@ -1,4 +1,4 @@
-import {RECEIVE_DECKS, ADD_DECK, UPDATE_DECK, REMOVE_DECK} from "../actions";
+import {RECEIVE_DECKS, ADD_DECK, UPDATE_DECK, REMOVE_DECK} from '../actions';
 
 /**
  * Reducer for decks

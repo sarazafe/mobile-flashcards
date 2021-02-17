@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text, StyleSheet} from "react-native";
-import {Blue, LightBlue, White} from "../utils/colors";
-import {cardShadowStyle} from "../utils/styles";
+import {View, Text, StyleSheet} from 'react-native';
+import {Blue, LightBlue, White} from '../utils/colors';
+import {cardShadowStyle} from '../utils/styles';
 
 /**
  * Component that represents a deck card

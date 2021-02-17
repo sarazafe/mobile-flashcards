@@ -1,5 +1,5 @@
-import {Black, Blue, DarkBlue, Green, LightSalmon, White} from "./colors";
-import {StyleSheet} from "react-native";
+import {Black, Blue, DarkBlue, Green, LightSalmon, White} from './colors';
+import {StyleSheet} from 'react-native';
 
 export const navigatorScreenOptions = {
 	headerStyle: {

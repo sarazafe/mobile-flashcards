@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text} from "react-native";
-import {errorStyles} from "../utils/styles";
-import {Button} from "./Button";
+import {View, Text} from 'react-native';
+import {errorStyles} from '../utils/styles';
+import {Button} from './Button';
 
 /**
  * Component that renders an error message

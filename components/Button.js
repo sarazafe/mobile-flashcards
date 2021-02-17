@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native'
-import {Blue, Green, White} from "../utils/colors";
+import {Blue, Green, White} from '../utils/colors';
 
 export const Button = ({children, disabled, onPress}) => {
 	const buttonStyles = [styles.button, disabled ? styles.disabledButton : ''];

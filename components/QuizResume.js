@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from "react-native";
+import {View, Text, StyleSheet} from 'react-native';
 import {StackActions} from '@react-navigation/native';
-import {Button} from "./Button";
-import {commonStyles} from "../utils/styles";
-import {Blue, DarkBlue} from "../utils/colors";
+import {Button} from './Button';
+import {commonStyles} from '../utils/styles';
+import {Blue, DarkBlue} from '../utils/colors';
 
 /**
  * Component that represents a quiz resume

@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {ScrollView, View, Text, StyleSheet, TouchableOpacity, Animated} from "react-native";
+import {ScrollView, View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native';
 import {connect} from 'react-redux';
-import {QuizQuestionSection} from "./QuizQuestionSection";
-import {QuizAnswerSection} from "./QuizAnswerSection";
-import {QUIZ_RESUME_PAGE} from "../utils/constants";
-import {clearLocalNotification, saveQuizResults} from "../api/api";
-import {cardShadowStyle, cardStyle, commonStyles} from "../utils/styles";
-import {Blue, DarkBlue} from "../utils/colors";
+import {QuizQuestionSection} from './QuizQuestionSection';
+import {QuizAnswerSection} from './QuizAnswerSection';
+import {QUIZ_RESUME_PAGE} from '../utils/constants';
+import {clearLocalNotification, saveQuizResults} from '../api/api';
+import {cardShadowStyle, cardStyle, commonStyles} from '../utils/styles';
+import {Blue, DarkBlue} from '../utils/colors';
 
 /**
  * Component where quiz takes place

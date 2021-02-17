@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput} from "react-native";
-import {Button} from "./Button";
-import {connect} from "react-redux";
-import {addDeck} from "../actions";
-import {saveDeckTitle} from "../api/api";
-import {DECK_LIST_PAGE} from "../utils/constants";
-import {commonStyles, formStyles} from "../utils/styles";
-import {Error} from "./Error";
+import {View, Text, TextInput} from 'react-native';
+import {Button} from './Button';
+import {connect} from 'react-redux';
+import {addDeck} from '../actions';
+import {saveDeckTitle} from '../api/api';
+import {DECK_LIST_PAGE} from '../utils/constants';
+import {commonStyles, formStyles} from '../utils/styles';
+import {Error} from './Error';
 
 /**
  * Component where a new deck is able to be added to the store

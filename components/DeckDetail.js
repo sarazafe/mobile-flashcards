@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet} from "react-native";
+import {Text, View, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {FontAwesome5} from '@expo/vector-icons';
-import {Button} from "./Button";
-import {ADD_CARD_PAGE, QUIZ_PAGE} from "../utils/constants";
-import {removeDeck as removeDeckFromStorage} from "../api/api";
-import {StackActions} from "@react-navigation/native";
-import {removeDeck} from "../actions";
-import {commonStyles} from "../utils/styles";
-import {Blue, DarkSalmon} from "../utils/colors";
-import {TouchableDeckCard} from "./TouchableDeckCard";
+import {Button} from './Button';
+import {ADD_CARD_PAGE, QUIZ_PAGE} from '../utils/constants';
+import {removeDeck as removeDeckFromStorage} from '../api/api';
+import {StackActions} from '@react-navigation/native';
+import {removeDeck} from '../actions';
+import {commonStyles} from '../utils/styles';
+import {Blue, DarkSalmon} from '../utils/colors';
+import {TouchableDeckCard} from './TouchableDeckCard';
 
 /**
  * Component that shows the details of a deck
@@ -71,7 +71,7 @@ class DeckDetail extends Component {
 							<Text style={{color: Blue}}>Click on the card to start the quiz!</Text>
 							:
 							<View style={styles.noCardsContainer}>
-								<FontAwesome5 name="exclamation" size={15} color={DarkSalmon}/>
+								<FontAwesome5 name='exclamation' size={15} color={DarkSalmon}/>
 								<Text style={{color: Blue, marginLeft: 10}}>Add some cards to start the quiz</Text>
 							</View>
 					}

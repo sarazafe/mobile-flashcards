@@ -1,6 +1,6 @@
 import React from 'react';
-import {TouchableOpacity} from "react-native";
-import {DeckCard} from "./DeckCard";
+import {TouchableOpacity} from 'react-native';
+import {DeckCard} from './DeckCard';
 
 /**
  * Component that represents a touchable deck card

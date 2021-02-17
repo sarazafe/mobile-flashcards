@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import * as Permissions from "expo-permissions";
+import * as Permissions from 'expo-permissions';
 import * as Notifications from 'expo-notifications';
-import {Platform} from "react-native";
+import {Platform} from 'react-native';
 
 const DECKS_STORAGE_KEY = 'MobileFlashcards:decks';
 const QUIZ_RESULTS_STORAGE_KEY = 'MobileFlashcards:quizResults';
@@ -113,7 +113,7 @@ export const setLocalNotification = () => {
 						if (status === 'granted') {
 							Notifications.scheduleNotificationAsync({
 								content: {
-									title: "📖 Time to study!",
+									title: '📖 Time to study!',
 									body: 'Why not play some quizzes to prepare your studies?',
 								},
 								trigger: new Date().setHours(16, 0, 0, 0),
