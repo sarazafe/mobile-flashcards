@@ -85,3 +85,17 @@ export const formStyles = StyleSheet.create({
 		padding: 10,
 	}
 });
+
+export const errorStyles = StyleSheet.create({
+	container: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		margin: 20,
+	},
+	message: {
+		textAlign: 'center',
+		fontSize: 20,
+		color: DarkBlue,
+		marginBottom: 10,
+	},
+});

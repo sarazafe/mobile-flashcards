@@ -6,6 +6,7 @@ import {Button} from "./Button";
 import {updateDeck} from "../actions";
 import {addCartToDeck} from "../api/api";
 import {commonStyles, formStyles} from "../utils/styles";
+import {Error} from "./Error";
 
 /**
  * Component where a new deck is able to be added to the store
@@ -84,12 +85,9 @@ class AddCard extends Component {
 	 */
 	renderErrorView = () => {
 		const {errorMsg} = this.state;
-		return (<View>
-			<Text>{errorMsg}</Text>
-			<Button onPress={this.resetState}>
-				Try again!
-			</Button>
-		</View>);
+		return (
+			<Error errorMsg={errorMsg} resetStateFn={this.resetState}/>
+		);
 	};
 
 	/**

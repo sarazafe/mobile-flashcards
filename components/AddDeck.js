@@ -6,6 +6,7 @@ import {addDeck} from "../actions";
 import {saveDeckTitle} from "../api/api";
 import {DECK_LIST_PAGE} from "../utils/constants";
 import {commonStyles, formStyles} from "../utils/styles";
+import {Error} from "./Error";
 
 /**
  * Component where a new deck is able to be added to the store
@@ -74,12 +75,9 @@ class AddDeck extends Component {
 	 */
 	renderErrorView = () => {
 		const {errorMsg} = this.state;
-		return (<View>
-			<Text>{errorMsg}</Text>
-			<Button onPress={this.resetState}>
-				Try again!
-			</Button>
-		</View>);
+		return (
+			<Error errorMsg={errorMsg} resetStateFn={this.resetState}/>
+		);
 	};
 
 	/**
