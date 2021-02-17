@@ -148,6 +148,11 @@ export const setLocalNotification = () => {
  * Clears local notification when user has play at least one quiz in the day
  */
 export const clearLocalNotification = () => {
+	// Not apply for web
+	if (Platform.OS === 'web') {
+		return;
+	}
+
 	Notifications.cancelAllScheduledNotificationsAsync().then(
 		// noop
 	);
