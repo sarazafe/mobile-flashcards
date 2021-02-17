@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {StyleSheet, StatusBar} from 'react-native';
@@ -11,21 +11,23 @@ import {AddDeckTab} from "./components/AddDeckTab";
 import {ADD_DECK_TAB, HOME_TAB} from "./utils/constants";
 import {Blue, Green} from "./utils/colors";
 
-export default function App() {
-	const Tab = createBottomTabNavigator();
-	return (
-		<Provider store={createStore(reducer)}>
-			<StatusBar barStyle="light-content" backgroundColor={Blue} />
-			<NavigationContainer style={styles.container}>
-				<Tab.Navigator
-					screenOptions={({route}) => getTabNavigatorScreeOptions(route)}
-					tabBarOptions={getTabNavigatorTabBarOptions()}>
-					<Tab.Screen name={HOME_TAB} component={Home}/>
-					<Tab.Screen name={ADD_DECK_TAB} component={AddDeckTab}/>
-				</Tab.Navigator>
-			</NavigationContainer>
-		</Provider>
-	);
+export default class App extends Component {
+	render() {
+		const Tab = createBottomTabNavigator();
+		return (
+			<Provider store={createStore(reducer)}>
+				<StatusBar barStyle="light-content" backgroundColor={Blue} />
+				<NavigationContainer style={styles.container}>
+					<Tab.Navigator
+						screenOptions={({route}) => getTabNavigatorScreeOptions(route)}
+						tabBarOptions={getTabNavigatorTabBarOptions()}>
+						<Tab.Screen name={HOME_TAB} component={Home}/>
+						<Tab.Screen name={ADD_DECK_TAB} component={AddDeckTab}/>
+					</Tab.Navigator>
+				</NavigationContainer>
+			</Provider>
+		);
+	}
 }
 
 /**
