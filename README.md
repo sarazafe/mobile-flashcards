@@ -14,3 +14,13 @@ To install and launch the project these steps must be follow:
 * Install the dependencies: `yarn`
 * Launch the project: `yarn start`
     * For an easy way to test the code, it can be possible to launch with _expo_ as folows: `expo start`
+    
+## Tested platforms
+
+This project was tested on an **_Android_** device and **_Web emulator_**.
+
+## Additional notes
+
+In the requirements, it is said that _'Pressing on a deck in the list should generate an animation...'_. 
+By default, the _react-native_ navigation library navigates through pages with an animation so I added a 
+particular animation on _Quiz_ page. The animation consists of flippling the card to show the question or the answer.
