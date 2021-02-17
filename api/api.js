@@ -18,15 +18,6 @@ export const getDecks = () => {
 };
 
 /**
- * Gets a deck in storage by id
- * @param id - the id of the deck to get
- * @returns {{}} the deck
- */
-export const getDeck = (id) => {
-	return {}
-};
-
-/**
  * Adds to the list of decks in storage a deck with a title
  * @param title - the title of the deck
  */
