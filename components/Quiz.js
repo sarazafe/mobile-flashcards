@@ -34,9 +34,6 @@ class Quiz extends Component {
 			});
 		});
 
-		this.setState({
-			animationValue: 0,
-		});
 		const {animatedValue} = this.state;
 		animatedValue.addListener(({value}) => {
 			this.setState({
@@ -120,8 +117,6 @@ class Quiz extends Component {
 				showQuestion: true,
 			}
 		});
-
-
 	};
 
 	/**
@@ -132,6 +127,8 @@ class Quiz extends Component {
 			...currentState,
 			showQuestion: !currentState.showQuestion,
 		}));
+
+		// Animate the toggle action
 		const {animatedValue} = this.state;
 		if (this.state.animationValue >= 90) {
 			Animated.spring(animatedValue, {
@@ -151,42 +148,29 @@ class Quiz extends Component {
 	};
 
 	/**
-	 * Gets style for showing question animation
+	 * Gets the interpolate value to animate the question
 	 */
-	getQuestionAnimatedStyle = () => (
-		{
-			transform: [
-				{
-					rotateY: this.questionInterpolate,
-				}
-			]
-		}
-	);
-
-	/**
-	 * Gets style for showing answer animation
-	 */
-	getAnswerAnimatedStyle = () => (
-		{
-			transform: [
-				{
-					rotateY: this.answerInterpolate,
-				}
-			]
-		}
-	);
-
-	render() {
-		const {currentQuestion, remainingQuestions, totalQuestions, showQuestion, animatedValue} = this.state;
-		const front = animatedValue.interpolate({
+	getQuestionAnimationInterpolateValue = () => {
+		const {animatedValue} = this.state;
+		return animatedValue.interpolate({
 			inputRange: [0, 180],
 			outputRange: ['0deg', '180deg'],
 		});
-		const back = animatedValue.interpolate({
+	};
+
+	/**
+	 * Gets the interpolate value to animate the answer
+	 */
+	getAnswerAnimationInterpolateValue = () => {
+		const {animatedValue} = this.state;
+		return animatedValue.interpolate({
 			inputRange: [0, 180],
 			outputRange: ['180deg', '360deg'],
 		});
+	}
 
+	render() {
+		const {currentQuestion, remainingQuestions, totalQuestions, showQuestion} = this.state;
 		return (
 			<ScrollView style={[commonStyles.container, {position: 'relative'}]}>
 				<View style={styles.header}>
@@ -195,7 +179,7 @@ class Quiz extends Component {
 				</View>
 
 				<View style={styles.cardContainer}>
-					<Animated.View style={[styles.cardAnimatedView, {transform: [{rotateY: front}]}]}>
+					<Animated.View style={[styles.cardAnimatedView, {transform: [{rotateY: this.getQuestionAnimationInterpolateValue()}]}]}>
 						<TouchableOpacity onPress={this.toggleQuestion}>
 							<View style={[cardStyle.card, cardShadowStyle.shadow]}>
 								<Text style={cardStyle.cardIcon}>⏳</Text>
@@ -206,7 +190,7 @@ class Quiz extends Component {
 				</View>
 
 				<View style={styles.cardContainer}>
-					<Animated.View style={[styles.cardAnimatedView, {transform: [{rotateY: back}]}]}>
+					<Animated.View style={[styles.cardAnimatedView, {transform: [{rotateY: this.getAnswerAnimationInterpolateValue()}]}]}>
 						<TouchableOpacity onPress={this.toggleQuestion}>
 							<View style={[cardStyle.card, cardShadowStyle.shadow]}>
 								<Text style={cardStyle.cardIcon}>⌛️</Text>
