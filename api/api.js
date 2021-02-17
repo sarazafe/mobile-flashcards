@@ -1,4 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import * as Permissions from "expo-permissions";
+import * as Notifications from 'expo-notifications';
+import {Platform} from "react-native";
 
 const DECKS_STORAGE_KEY = 'MobileFlashcards:decks';
 const QUIZ_RESULTS_STORAGE_KEY = 'MobileFlashcards:quizResults';
@@ -79,12 +82,12 @@ export const removeDeck = (title) => {
  * @param totalQuestions - the total questions of the deck
  */
 export const saveQuizResults = ({title, rightQuestions, totalQuestions}) => {
-	return AsyncStorage.getItem(QUIZ_RESULTS_STORAGE_KEY)
+	AsyncStorage.getItem(QUIZ_RESULTS_STORAGE_KEY)
 		.then((data) => {
 			const results = JSON.parse(data);
 			let previousQuizzesOfToday = [];
-			if (results && results[new Date().toLocaleDateString()]) {
-				previousQuizzesOfToday = results[new Date().toLocaleDateString()];
+			if (results && results[getCurrentDate()]) {
+				previousQuizzesOfToday = results[getCurrentDate()];
 			}
 
 			AsyncStorage.setItem(QUIZ_RESULTS_STORAGE_KEY, JSON.stringify({
@@ -100,3 +103,60 @@ export const saveQuizResults = ({title, rightQuestions, totalQuestions}) => {
 			}));
 		});
 };
+
+/**
+ * Sets local notification
+ */
+export const setLocalNotification = () => {
+	// Not apply for web
+	if (Platform.OS === 'web') {
+		return;
+	}
+
+	AsyncStorage.getItem(QUIZ_RESULTS_STORAGE_KEY)
+		.then(JSON.parse)
+		.then((data) => {
+			if (!data[getCurrentDate()]) {
+				Permissions.askAsync(Permissions.NOTIFICATIONS).then(
+					({status}) => {
+						if (status === 'granted') {
+							Notifications.scheduleNotificationAsync({
+								content: {
+									title: "📖 Time to study!",
+									body: 'Why not play some quizzes to prepare your studies?',
+								},
+								trigger: new Date().setHours(16, 0, 0, 0),
+							}).then(
+								// noop
+							);
+
+							Notifications.setNotificationHandler({
+								handleNotification: async () => ({
+									shouldShowAlert: true,
+									shouldPlaySound: true,
+									shouldSetBadge: false,
+								}),
+							});
+						}
+					}
+				);
+			}
+		});
+};
+
+/**
+ * Clears local notification when user has play at least one quiz in the day
+ */
+export const clearLocalNotification = () => {
+	Notifications.cancelAllScheduledNotificationsAsync().then(
+		// noop
+	);
+};
+
+/**
+ * Function to gets the formatted current date
+ * @returns {string} - formatted date
+ */
+const getCurrentDate = () => {
+	return new Date().toLocaleDateString();
+}
