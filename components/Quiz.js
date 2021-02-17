@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {QuizQuestionSection} from "./QuizQuestionSection";
 import {QuizAnswerSection} from "./QuizAnswerSection";
 import {QUIZ_RESUME_PAGE} from "../utils/constants";
-import {saveQuizResults} from "../api/api";
+import {clearLocalNotification, saveQuizResults} from "../api/api";
 import {cardShadowStyle, cardStyle, commonStyles} from "../utils/styles";
 import {Blue, DarkBlue} from "../utils/colors";
 
@@ -97,6 +97,8 @@ class Quiz extends Component {
 				rightQuestions,
 				totalQuestions,
 			});
+
+			clearLocalNotification();
 
 			navigation.navigate(QUIZ_RESUME_PAGE, {
 				title,

@@ -10,8 +10,13 @@ import {Home} from "./components/Home";
 import {AddDeckTab} from "./components/AddDeckTab";
 import {ADD_DECK_TAB, HOME_TAB} from "./utils/constants";
 import {Blue, Green} from "./utils/colors";
+import {setLocalNotification} from "./api/api";
 
 export default class App extends Component {
+	componentDidMount() {
+		setLocalNotification()
+	}
+
 	render() {
 		const Tab = createBottomTabNavigator();
 		return (
