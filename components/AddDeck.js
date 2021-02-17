@@ -4,7 +4,7 @@ import {Button} from "./Button";
 import {connect} from "react-redux";
 import {addDeck} from "../actions";
 import {saveDeckTitle} from "../api/api";
-import {HOME_TAB} from "../utils/constants";
+import {DECK_LIST_PAGE} from "../utils/constants";
 import {commonStyles, formStyles} from "../utils/styles";
 
 /**
@@ -49,7 +49,7 @@ class AddDeck extends Component {
 			this.resetState();
 
 			const {navigation} = this.props;
-			navigation.navigate(HOME_TAB);
+			navigation.navigate(DECK_LIST_PAGE);
 		}).catch(() => {
 			this.setState({
 				deckTitle: '',
