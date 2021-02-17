@@ -55,7 +55,12 @@ class DeckDetail extends Component {
 	};
 
 	render() {
-		const {deck: {title, questions}} = this.props;
+		const {deck} = this.props;
+		if (!deck) {
+			return (<></>)
+		}
+
+		const {title, questions} = deck;
 		return (
 			<View style={commonStyles.container}>
 				<TouchableDeckCard title={title} numberOfCards={questions.length}
