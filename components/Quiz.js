@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {ScrollView, View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native';
 import {connect} from 'react-redux';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {QuizQuestionSection} from './QuizQuestionSection';
 import {QuizAnswerSection} from './QuizAnswerSection';
 import {QUIZ_RESUME_PAGE} from '../utils/constants';
 import {clearLocalNotification, saveQuizResults} from '../api/api';
 import {cardShadowStyle, cardStyle, commonStyles} from '../utils/styles';
-import {Blue, DarkBlue} from '../utils/colors';
+import {Blue, DarkBlue, DarkGreen} from '../utils/colors';
 
 /**
  * Component where quiz takes place
@@ -20,6 +21,7 @@ class Quiz extends Component {
 		showQuestion: true,
 		animatedValue: new Animated.Value(0),
 		animationValue: 0,
+		waitingForQuestion: true,
 	};
 
 	componentDidMount() {
@@ -63,6 +65,7 @@ class Quiz extends Component {
 			rightQuestions: 0,
 			showQuestion: true,
 			animationValue: 0,
+			waitingForQuestion: false,
 		});
 	};
 
@@ -71,6 +74,9 @@ class Quiz extends Component {
 	 * @param correct - flag to indicate if the chosen answer for the question was right or not
 	 */
 	answerQuestion = correct => {
+		this.hideQuestionWhenAnswering();
+
+		// Answer the question
 		if (correct) {
 			this.setState((currentState) => ({
 				...currentState,
@@ -79,7 +85,22 @@ class Quiz extends Component {
 		} else {
 			this.showNextQuestion();
 		}
-		this.flipCard();
+	};
+
+	/**
+	 * When a question is answering, there must be flipped and hidden the next question until
+	 * the flip animation is finished in order to avoid showing the next answer before it's allowed to do it.
+	 */
+	hideQuestionWhenAnswering = () => {
+		// Waiting for net question until the flip animation has finished
+		this.setState({
+			waitingForQuestion: true,
+		});
+		this.flipCard(() => {
+			this.setState({
+				waitingForQuestion: false, // animation has finished, the next question can be shown
+			});
+		});
 	};
 
 	/**
@@ -126,6 +147,11 @@ class Quiz extends Component {
 	 * Toggle show question flag
 	 */
 	toggleQuestion = () => {
+		const {waitingForQuestion} = this.state;
+		if (waitingForQuestion) {
+			return;
+		}
+
 		this.setState(currentState => ({
 			...currentState,
 			showQuestion: !currentState.showQuestion,
@@ -137,8 +163,10 @@ class Quiz extends Component {
 
 	/**
 	 * Flips the card
+	 * @param callback (opt) - callback to be executed when animation is finished
 	 */
-	flipCard = ()=> {
+	flipCard = (callback = () => {
+	}) => {
 		const {animatedValue} = this.state;
 		if (this.state.animationValue >= 90) {
 			Animated.spring(animatedValue, {
@@ -146,14 +174,18 @@ class Quiz extends Component {
 				friction: 8,
 				tension: 10,
 				useNativeDriver: true,
-			}).start();
+			}).start(() => {
+				callback();
+			});
 		} else {
 			Animated.spring(animatedValue, {
 				toValue: 180,
 				friction: 8,
 				tension: 10,
 				useNativeDriver: true,
-			}).start();
+			}).start(() => {
+				callback();
+			});
 		}
 	};
 
@@ -180,7 +212,7 @@ class Quiz extends Component {
 	}
 
 	render() {
-		const {currentQuestion, remainingQuestions, totalQuestions, showQuestion} = this.state;
+		const {currentQuestion, remainingQuestions, totalQuestions, showQuestion, waitingForQuestion} = this.state;
 		return (
 			<ScrollView style={[commonStyles.container, {position: 'relative'}]}>
 				<View style={styles.header}>
@@ -189,18 +221,31 @@ class Quiz extends Component {
 				</View>
 
 				<View style={styles.cardContainer}>
-					<Animated.View style={[styles.cardAnimatedView, {transform: [{rotateY: this.getQuestionAnimationInterpolateValue()}]}]}>
+					<Animated.View
+						style={[styles.cardAnimatedView, {transform: [{rotateY: this.getQuestionAnimationInterpolateValue()}]}]}>
 						<TouchableOpacity onPress={this.toggleQuestion}>
-							<View style={[cardStyle.card, cardShadowStyle.shadow]}>
-								<Text style={cardStyle.cardIcon}>⏳</Text>
-								<Text style={cardStyle.cardText}>{currentQuestion.question}</Text>
-							</View>
+							{
+								waitingForQuestion ?
+									(
+										<View style={[cardStyle.card, cardShadowStyle.shadow]}>
+											<MaterialCommunityIcons name="cards-playing-outline" size={100}
+											                        color={DarkGreen}/>
+										</View>
+									) :
+									(
+										<View style={[cardStyle.card, cardShadowStyle.shadow]}>
+											<Text style={cardStyle.cardIcon}>⏳</Text>
+											<Text style={cardStyle.cardText}>{currentQuestion.question}</Text>
+										</View>
+									)
+							}
 						</TouchableOpacity>
 					</Animated.View>
 				</View>
 
 				<View style={styles.cardContainer}>
-					<Animated.View style={[styles.cardAnimatedView, {transform: [{rotateY: this.getAnswerAnimationInterpolateValue()}]}]}>
+					<Animated.View
+						style={[styles.cardAnimatedView, {transform: [{rotateY: this.getAnswerAnimationInterpolateValue()}]}]}>
 						<TouchableOpacity onPress={this.toggleQuestion}>
 							<View style={[cardStyle.card, cardShadowStyle.shadow]}>
 								<Text style={cardStyle.cardIcon}>⌛️</Text>
@@ -213,8 +258,7 @@ class Quiz extends Component {
 				<View style={styles.actionsContainer}>
 					{
 						showQuestion ?
-							<QuizQuestionSection question={currentQuestion}
-							                     toggleQuestionFn={this.toggleQuestion}/>
+							<QuizQuestionSection waitingForQuestion={waitingForQuestion}/>
 							:
 							<QuizAnswerSection question={currentQuestion}
 							                   answerQuestionFn={this.answerQuestion}
