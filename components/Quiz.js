@@ -7,7 +7,7 @@ import {QuizAnswerSection} from './QuizAnswerSection';
 import {QUIZ_RESUME_PAGE} from '../utils/constants';
 import {clearLocalNotification, saveQuizResults} from '../api/api';
 import {cardShadowStyle, cardStyle, commonStyles} from '../utils/styles';
-import {Blue, DarkBlue, DarkGreen} from '../utils/colors';
+import {Blue, DarkBlue, DarkGreen, DarkSalmon} from '../utils/colors';
 
 /**
  * Component where quiz takes place
@@ -22,7 +22,10 @@ class Quiz extends Component {
 		animatedValue: new Animated.Value(0),
 		animationValue: 0,
 		waitingForQuestion: true,
+		defaultCardColor: DarkGreen,
 	};
+
+	defaultCardColors = [DarkGreen, DarkSalmon];
 
 	componentDidMount() {
 		const {navigation} = this.props;
@@ -95,6 +98,7 @@ class Quiz extends Component {
 		// Waiting for net question until the flip animation has finished
 		this.setState({
 			waitingForQuestion: true,
+			defaultCardColor: this.defaultCardColors[Math.round(Math.random())],
 		});
 		this.flipCard(() => {
 			this.setState({
@@ -212,7 +216,7 @@ class Quiz extends Component {
 	}
 
 	render() {
-		const {currentQuestion, remainingQuestions, totalQuestions, showQuestion, waitingForQuestion} = this.state;
+		const {currentQuestion, remainingQuestions, totalQuestions, showQuestion, waitingForQuestion, defaultCardColor} = this.state;
 		return (
 			<ScrollView style={[commonStyles.container, {position: 'relative'}]}>
 				<View style={styles.header}>
@@ -229,7 +233,7 @@ class Quiz extends Component {
 									(
 										<View style={[cardStyle.card, cardShadowStyle.shadow]}>
 											<MaterialCommunityIcons name="cards-playing-outline" size={100}
-											                        color={DarkGreen}/>
+											                        color={defaultCardColor}/>
 										</View>
 									) :
 									(
