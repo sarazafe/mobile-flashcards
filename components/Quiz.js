@@ -213,7 +213,7 @@ class Quiz extends Component {
 			<ScrollView style={[commonStyles.container, {position: 'relative'}]}>
 				<View style={styles.header}>
 					<Text style={styles.title}>Let's play!</Text>
-					<Text style={styles.subTitle}>{remainingQuestions.length}/{totalQuestions}</Text>
+					<Text style={styles.subTitle}>{totalQuestions - remainingQuestions.length}/{totalQuestions}</Text>
 				</View>
 
 				<View style={styles.cardContainer}>
