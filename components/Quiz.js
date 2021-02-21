@@ -83,7 +83,7 @@ class Quiz extends Component {
 			defaultCardColor: this.defaultCardColors[Math.floor(Math.random() * this.defaultCardColors.length)],
 		});
 		this.flipCard(() => {
-			if(this.state.remainingQuestions.length > 0){
+			if (this.state.remainingQuestions.length > 0) {
 				this.setState({
 					waitingForQuestion: false, // animation has finished, the next question can be shown
 				});
@@ -220,23 +220,23 @@ class Quiz extends Component {
 				<View style={styles.cardContainer}>
 					<Animated.View
 						style={[styles.cardAnimatedView, {transform: [{rotateY: this.getQuestionAnimationInterpolateValue()}]}]}>
-						<TouchableOpacity onPress={this.toggleQuestion}>
-							{
-								waitingForQuestion ?
-									(
-										<View style={[cardStyle.card, cardShadowStyle.shadow]}>
-											<MaterialCommunityIcons name="cards-playing-outline" size={100}
-											                        color={defaultCardColor}/>
-										</View>
-									) :
-									(
+						{
+							waitingForQuestion ?
+								(
+									<View style={[cardStyle.card, cardShadowStyle.shadow]}>
+										<MaterialCommunityIcons name="cards-playing-outline" size={100}
+										                        color={defaultCardColor}/>
+									</View>
+								) :
+								(
+									<TouchableOpacity onPress={this.toggleQuestion}>
 										<View style={[cardStyle.card, cardShadowStyle.shadow]}>
 											<Text style={cardStyle.cardIcon}>⏳</Text>
 											<Text style={cardStyle.cardText}>{currentQuestion.question}</Text>
 										</View>
-									)
-							}
-						</TouchableOpacity>
+									</TouchableOpacity>
+								)
+						}
 					</Animated.View>
 				</View>
 
