@@ -83,10 +83,11 @@ class Quiz extends Component {
 			defaultCardColor: this.defaultCardColors[Math.floor(Math.random() * this.defaultCardColors.length)],
 		});
 		this.flipCard(() => {
-			this.setState({
-				waitingForQuestion: false, // animation has finished, the next question can be shown
-			});
-
+			if(this.state.remainingQuestions.length > 0){
+				this.setState({
+					waitingForQuestion: false, // animation has finished, the next question can be shown
+				});
+			}
 			// Answer the question
 			if (correct) {
 				this.setState((currentState) => ({
