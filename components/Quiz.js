@@ -253,8 +253,8 @@ class Quiz extends Component {
 
 				<View style={styles.actionsContainer}>
 					{
-						showQuestion ?
-							<QuizQuestionSection waitingForQuestion={waitingForQuestion}/>
+						waitingForQuestion || showQuestion ?
+							<QuizQuestionSection waitingForQuestion={waitingForQuestion} remainingQuestions={remainingQuestions} />
 							:
 							<QuizAnswerSection question={currentQuestion}
 							                   answerQuestionFn={this.answerQuestion}
