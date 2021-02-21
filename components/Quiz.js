@@ -77,24 +77,6 @@ class Quiz extends Component {
 	 * @param correct - flag to indicate if the chosen answer for the question was right or not
 	 */
 	answerQuestion = correct => {
-		this.hideQuestionWhenAnswering();
-
-		// Answer the question
-		if (correct) {
-			this.setState((currentState) => ({
-				...currentState,
-				rightQuestions: currentState.rightQuestions + 1
-			}), this.showNextQuestion);
-		} else {
-			this.showNextQuestion();
-		}
-	};
-
-	/**
-	 * When a question is answering, there must be flipped and hidden the next question until
-	 * the flip animation is finished in order to avoid showing the next answer before it's allowed to do it.
-	 */
-	hideQuestionWhenAnswering = () => {
 		// Waiting for net question until the flip animation has finished
 		this.setState({
 			waitingForQuestion: true,
@@ -104,6 +86,16 @@ class Quiz extends Component {
 			this.setState({
 				waitingForQuestion: false, // animation has finished, the next question can be shown
 			});
+
+			// Answer the question
+			if (correct) {
+				this.setState((currentState) => ({
+					...currentState,
+					rightQuestions: currentState.rightQuestions + 1
+				}), this.showNextQuestion);
+			} else {
+				this.showNextQuestion();
+			}
 		});
 	};
 
