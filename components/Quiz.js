@@ -20,7 +20,6 @@ class Quiz extends Component {
 		rightQuestions: 0,
 		showQuestion: true,
 		animatedValue: new Animated.Value(0),
-		animationValue: 0,
 		waitingForQuestion: true,
 		defaultCardColor: DarkGreen,
 	};
@@ -36,13 +35,6 @@ class Quiz extends Component {
 		this.unsubscribeBlurListener = navigation.addListener('blur', () => {
 			this.setState({
 				showQuestion: true,
-			});
-		});
-
-		const {animatedValue} = this.state;
-		animatedValue.addListener(({value}) => {
-			this.setState({
-				animationValue: value,
 			});
 		});
 	}
@@ -67,7 +59,6 @@ class Quiz extends Component {
 			totalQuestions: questions.length,
 			rightQuestions: 0,
 			showQuestion: true,
-			animationValue: 0,
 			waitingForQuestion: false,
 		});
 	};
@@ -164,10 +155,10 @@ class Quiz extends Component {
 	 */
 	flipCard = (callback = () => {
 	}) => {
-		const {animatedValue} = this.state;
-		if (this.state.animationValue >= 90) {
+		const {animatedValue, waitingForQuestion, showQuestion} = this.state;
+		if (waitingForQuestion || showQuestion) {
 			Animated.spring(animatedValue, {
-				toValue: 0,
+				toValue: 180,
 				friction: 8,
 				tension: 10,
 				useNativeDriver: true,
@@ -176,7 +167,7 @@ class Quiz extends Component {
 			});
 		} else {
 			Animated.spring(animatedValue, {
-				toValue: 180,
+				toValue: 0,
 				friction: 8,
 				tension: 10,
 				useNativeDriver: true,
