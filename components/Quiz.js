@@ -7,7 +7,7 @@ import {QuizAnswerSection} from './QuizAnswerSection';
 import {QUIZ_RESUME_PAGE} from '../utils/constants';
 import {clearLocalNotification, saveQuizResults} from '../api/api';
 import {cardShadowStyle, cardStyle, commonStyles} from '../utils/styles';
-import {Blue, DarkBlue, DarkGreen, DarkSalmon} from '../utils/colors';
+import {Blue, DarkBlue, DarkGreen, DarkSalmon, Green, LightBlue, LightSalmon, Salmon} from '../utils/colors';
 
 /**
  * Component where quiz takes place
@@ -25,7 +25,7 @@ class Quiz extends Component {
 		defaultCardColor: DarkGreen,
 	};
 
-	defaultCardColors = [DarkGreen, DarkSalmon];
+	defaultCardColors = [DarkGreen, DarkSalmon, DarkBlue, LightBlue, LightSalmon, Green, Blue, Salmon];
 
 	componentDidMount() {
 		const {navigation} = this.props;
@@ -80,7 +80,7 @@ class Quiz extends Component {
 		// Waiting for net question until the flip animation has finished
 		this.setState({
 			waitingForQuestion: true,
-			defaultCardColor: this.defaultCardColors[Math.round(Math.random())],
+			defaultCardColor: this.defaultCardColors[Math.floor(Math.random() * this.defaultCardColors.length)],
 		});
 		this.flipCard(() => {
 			this.setState({
@@ -254,7 +254,8 @@ class Quiz extends Component {
 				<View style={styles.actionsContainer}>
 					{
 						waitingForQuestion || showQuestion ?
-							<QuizQuestionSection waitingForQuestion={waitingForQuestion} remainingQuestions={remainingQuestions} />
+							<QuizQuestionSection waitingForQuestion={waitingForQuestion}
+							                     remainingQuestions={remainingQuestions}/>
 							:
 							<QuizAnswerSection question={currentQuestion}
 							                   answerQuestionFn={this.answerQuestion}
